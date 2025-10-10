@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--shape属性用xml直接配置-->
+    <declare-styleable name="ShapeView">
+        <attr name="shape_Type" format="enum">
+            <enum name="rectangle" value="0" />
+            <enum name="oval" value="1" />
+            <enum name="line" value="2" />
+            <enum name="ring" value="3" />
+        </attr>
+        <!--圆角、角度>=二分之一宽度就是圆形-->
+        <attr name="shape_cornersRadius" format="reference|dimension" />
+        <attr name="shape_cornersTopLeftRadius" format="reference|dimension" />
+        <attr name="shape_cornersTopRightRadius" format="reference|dimension" />
+        <attr name="shape_cornersBottomLeftRadius" format="reference|dimension" />
+        <attr name="shape_cornersBottomRightRadius" format="reference|dimension" />
+        <!--边框实线-->
+        <attr name="shape_strokeWidth" format="reference|dimension" />
+        <attr name="shape_strokeColor" format="reference|color" />
+        <!--边框虚线间隙-->
+        <attr name="shape_strokeDashGap" format="reference|dimension" />
+        <attr name="shape_strokeDashWidth" format="reference|dimension" />
+        <!--渐变色-->
+        <attr name="shape_gradientType" format="enum">
+            <enum name="linear" value="0" />
+            <enum name="sweep" value="1" />
+            <enum name="radial" value="2" />
+        </attr>
+        <attr name="shape_gradientStartColor" format="reference|color" />
+        <attr name="shape_gradientEndColor" format="reference|color" />
+        <attr name="shape_gradientCenterColor" format="reference|color" />
+        <attr name="shape_gradientAngle" format="reference|integer" />
+        <attr name="shape_gradientCenterX" format="reference|float" />
+        <attr name="shape_gradientCenterY" format="reference|float" />
+        <attr name="shape_gradientRadius" format="reference|dimension" />
+        <attr name="shape_gradientUseLevel" format="reference|boolean" />
+        <!--背景填充色 不要用background-->
+        <attr name="shape_solidColor" format="reference|color" />
+        <!--水波纹颜色-->
+        <attr name="shape_rippleColor" format="reference|color" />
+    </declare-styleable>
+
+</resources>

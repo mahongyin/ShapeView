@@ -1,0 +1,74 @@
+apply plugin: 'maven-publish'
+
+//javadoc {
+//    options.addStringOption("charset", "UTF-8")
+//    if (JavaVersion.current().isJava9Compatible()) {
+//        options.addBooleanOption('html5', true)
+//    }
+//}
+android {
+    //artifactory 加了这个就传上去了
+    publishing {
+        singleVariant("release") {
+            //使用apg插件里的？会包含源码和文档
+//            withSourcesJar()
+//            withJavadocJar()
+        }
+    }
+}
+//artifactory私库直接执行这里
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {//在android{}里加了singleVariant("release")和名称对应吗
+                from components.release
+                //artifact androidSourcesJar //打包源码，去除这行打的包将看不到源码
+                groupId = "io.github.mahongyin" //.${rootProject.projectDir.name}"
+                artifactId = rootProject.projectDir.name
+                version = VERSION_NAME
+                description "lib is a auth with ${projectDir.name}"
+            }
+        }
+        repositories {
+            maven {
+                allowInsecureProtocol true  // 如果MAVEN_LOCAL_PATH是http，此处必须为true，如果是https，则可以删除此项
+                name = "artifactory"  //"nexus" 配置后在Gradle > Tasks > publishing 下会显示对应的名称，容易区分
+                url = uri(MAVEN_URL)
+                credentials {
+                    username = MAVEN_USER
+                    password = MAVEN_PASSWORD
+                }
+            }
+        }
+        //发布本地仓库
+//         //repository(url: uri('../repo'))  //仓库地址 ：该目录下的上两级
+//        repositories {
+//            maven {
+//                url = uri('../repo')
+//            }
+//        }
+
+//        repositories {
+//            maven {
+////                name 'mavenCentral'
+////                "https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/"
+////                credentials {
+////                    username mavenCentralUsername
+////                    password mavenCentralPassword
+////                }
+//                url "./repo"
+//            }
+//        }
+    }
+}
+
+
+//源码打包aar的task
+//task androidSourcesJar(type: Jar) {
+tasks.register('androidSourcesJar', Jar) {
+    archiveClassifier.set("sources")
+    // 源码路径，包含Java、kotlin代码
+    from android.sourceSets.main.java.srcDirs
+    exclude "**/R.class"
+    exclude "**/BuildConfig.class"
+}
