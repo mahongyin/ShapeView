@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<com.mhy.shapeview.XmlDrawable xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:shape_cornersRadius="10dp"
+    app:shape_solidColor="#eeaaaa"
+    app:shape_strokeColor="#000000"
+    app:shape_strokeDashGap="14dp"
+    app:shape_strokeDashWidth="8dp"
+    app:shape_strokeWidth="1dp"
+    tools:ignore="NewApi" />

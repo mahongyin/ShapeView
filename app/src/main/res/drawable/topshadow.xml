@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<drawable xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    class="com.mhy.shapeview.ShadowDrawable"
+    app:bottom="0dp"
+    app:corner_radius="15dp"
+    app:left="0dp"
+    app:right="0dp"
+    app:shade_color="@color/purple_500"
+    app:shade_radius="20dp"
+    app:solid_color="@color/black"
+    app:top="20dp"
+    tools:targetApi="24"/>

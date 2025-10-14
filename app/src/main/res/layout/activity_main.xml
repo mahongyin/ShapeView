@@ -11,34 +11,37 @@
 
     <com.mhy.shapeview.ShapeView
         android:id="@+id/downloadSpeedTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
         app:shape_cornersRadius="8dp"
         app:shape_solidColor="@color/purple_200"
         app:shape_strokeColor="#000000"
         app:shape_rippleColor="@color/purple_500"
+        android:elevation="5dp"
         app:shape_strokeWidth="1dp" />
 
 
     <com.mhy.shapeview.ShapeView
         android:id="@+id/uploadSpeedTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
         app:shape_cornersRadius="8dp"
-        app:shape_rippleColor="#dddd33"
         app:shape_solidColor="#33f7ff"
         app:shape_strokeColor="@color/black"
         app:shape_strokeDashGap="14dp"
         app:shape_strokeDashWidth="8dp"
-        app:shape_strokeWidth="1dp" />
+        app:shape_strokeWidth="1dp"
+        android:elevation="5dp"
+        app:select_pressed="@drawable/shape"/>
 
-    <View
+    <TextView
         android:id="@+id/view"
-        android:layout_width="wrap_content"
+        android:clickable="true"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
-        android:background="@color/purple_500"/>
+        android:background="@color/black"/>
 
 </LinearLayout>

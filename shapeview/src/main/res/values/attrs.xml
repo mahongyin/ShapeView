@@ -38,6 +38,14 @@
         <attr name="shape_solidColor" format="reference|color" />
         <!--水波纹颜色-->
         <attr name="shape_rippleColor" format="reference|color" />
+        <attr name="shape_rippleRadius" format="reference|dimension" />
+        <!--选择器 颜色或自定义shape-->
+        <attr name="select_pressed" format="reference|color" />
+        <attr name="select_focused" format="reference|color" />
+        <attr name="select_selected" format="reference|color" />
+        <attr name="select_checked" format="reference|color" />
+        <attr name="select_uncheckable" format="reference|color" />
+        <attr name="select_unable" format="reference|color" />
     </declare-styleable>
 
 </resources>

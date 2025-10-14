@@ -5,9 +5,9 @@ mavenPublishing {
     def projectName = rootProject.name  //分享git是取的项目名
     def projectDirName = rootProject.projectDir.name//def projectName =rootProject.rootDir.name//项目文件夹名
 
-    def gitRepo = "gitee.com/mahongyin"
+    def gitRepo = "github.com/mahongyin"
     def versionName = VERSION_NAME
-    def groupName = "io.gitee.mahongyin" //.$projectDirName 自行分辨 用项目名还是目录名
+    def groupName = "io.github.mahongyin" //.$projectDirName 自行分辨 用项目名还是目录名
 
     //  获取当前模块名
     def moduleName = project.name
@@ -17,9 +17,9 @@ mavenPublishing {
 
     pom {
         name = moduleDirName
-        description = "A description of what ${projectDirName} does."
+        description = "A description of what ${projectName} does."
         inceptionYear = "2025"
-        url = "https://${gitRepo}/${projectDirName}/"
+        url = "https://${gitRepo}/${projectName}/"
         licenses {
             license {
                 name = "The Apache License, Version 2.0"
@@ -29,16 +29,16 @@ mavenPublishing {
         }
         developers {
             developer {
-                id = gitRepo.replace("gitee.com/", "")
-                name = gitRepo.replace("gitee.com/", "")
+                id = gitRepo.replace("github.com/", "")
+                name = gitRepo.replace("github.com/", "")
                 url = "https://${gitRepo}/"
                 email = "mhy.work@qq.com"
             }
         }
         scm {
-            url = "https://${gitRepo}/${projectDirName}/"
-            connection = "scm:git:git://${gitRepo}/${projectDirName}.git"
-            developerConnection = "scm:git:ssh://git@${gitRepo}/${projectDirName}.git"
+            url = "https://${gitRepo}/${projectName}/"
+            connection = "scm:git:git://${gitRepo}/${projectName}.git"
+            developerConnection = "scm:git:ssh://git@${gitRepo}/${projectName}.git"
         }
     }
 }
@@ -46,7 +46,7 @@ mavenPublishing {
 //../gradlew publishToMavenCentral
 // 自动发布
 //../gradlew publishAndReleaseToMavenCentral
-// https://repo1.maven.org/maven2/io/gitee/1976222027/
+// https://repo1.maven.org/maven2/io/github/1976222027/
 tasks.register("uploadMavenCentral"){
     group = "publishing"
     description = "Uploads all archives to the remote Maven repository."

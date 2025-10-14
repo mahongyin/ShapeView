@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.GradientDrawable.Orientation;
@@ -22,6 +23,8 @@ import androidx.core.view.ViewCompat;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created By Mahongyin
@@ -92,8 +95,9 @@ public class ShapeProxy {
 
         float strokeWidth = typedArray.getDimension(R.styleable.ShapeView_shape_strokeWidth, 0.0F);
         builder.setShapeStrokeWidth(strokeWidth);
+        int strokeColor = typedArray.getColor(R.styleable.ShapeView_shape_strokeColor, 0);
         if (hasValue(typedArray, R.styleable.ShapeView_shape_strokeColor)) {
-            builder.setShapeStrokeColor(typedArray.getColor(R.styleable.ShapeView_shape_strokeColor, 0));
+            builder.setShapeStrokeColor(strokeColor);
         }
         // 虚线间隙
         float strokeDashGap = typedArray.getDimension(R.styleable.ShapeView_shape_strokeDashGap, 0.0F);
@@ -119,7 +123,7 @@ public class ShapeProxy {
 //        }
 //
 //        if (hasValue(gradientType)) {
-//            setGradientType(drawable, gradientType);
+//            _setGradientType(drawable, gradientType);
 //            if (hasValue(gradientCenterX) || hasValue(gradientCenterY)) {
 //                drawable.setGradientCenter(gradientCenterX, gradientCenterY);
 //            }
@@ -131,7 +135,7 @@ public class ShapeProxy {
 //            drawable.setUseLevel(useLevel);
 //        }
 //
-//        setShape(drawable, shape);
+//        _setShape(drawable, shape);
         builder.setGradientType(gradientType);
         builder.setGradientCenterX(gradientCenterX);
         builder.setGradientCenterY(gradientCenterY);
@@ -139,6 +143,9 @@ public class ShapeProxy {
         builder.setGradientUseLevel(useLevel);
         if (hasValue(typedArray, R.styleable.ShapeView_shape_solidColor)) {
             builder.setShapeSolidColor(typedArray.getColor(R.styleable.ShapeView_shape_solidColor, 0));
+        }
+        if (hasValue(typedArray, R.styleable.ShapeView_shape_rippleRadius)) {
+            builder.setShapesRippleRadius(typedArray.getDimensionPixelOffset(R.styleable.ShapeView_shape_rippleRadius, 0));
         }
 //        if (hasValue(cornersRadius)) {
 //            drawable.setCornerRadius(cornersRadius);
@@ -150,6 +157,7 @@ public class ShapeProxy {
             int rippleColor = typedArray.getColor(R.styleable.ShapeView_shape_rippleColor, 0);
             builder.setShapeRippleColor(rippleColor);
         }
+
 //        if (rippleColor != 0) {
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //                //不需ripple背景
@@ -165,22 +173,9 @@ public class ShapeProxy {
 //                }*/
 //                ViewCompat.setBackground(view, rippleDrawable);
 //            } else {
-//                /*GradientDrawable maskDrawable = new GradientDrawable();
-//                maskDrawable.setColor(rippleColor);
-//                setShape(maskDrawable, shape);
-//                if (hasValue(cornersRadius)) {
-//                    maskDrawable.setCornerRadius(cornersRadius);
-//                } else if (hasValue(cornersTopLeftRadius) || hasValue(cornersTopRightRadius) || hasValue(cornersBottomLeftRadius) || hasValue(cornersBottomRightRadius)) {
-//                    maskDrawable.setCornerRadii(new float[]{cornersTopLeftRadius, cornersTopLeftRadius, cornersTopRightRadius, cornersTopRightRadius, cornersBottomRightRadius, cornersBottomRightRadius, cornersBottomLeftRadius, cornersBottomLeftRadius});
-//                }
-////                Drawable rippleDrawable = DrawableCompat.wrap(maskDrawable);
-////                DrawableCompat.setTintList(rippleDrawable, ColorStateList.valueOf(rippleColor));
-//                LayerDrawable layerDrawable = new LayerDrawable(new Drawable[]{drawable, maskDrawable});
-//                ViewCompat.setBackground(view, layerDrawable);*/
-//
 //                GradientDrawable pressedDrawable = new GradientDrawable();
 //                pressedDrawable.setColor(rippleColor);
-//                setShape(pressedDrawable, shape);
+//                _setShape(pressedDrawable, shape);
 //                if (hasValue(cornersRadius)) {
 //                    pressedDrawable.setCornerRadius(cornersRadius);
 //                } else if (hasValue(cornersTopLeftRadius) || hasValue(cornersTopRightRadius) || hasValue(cornersBottomLeftRadius) || hasValue(cornersBottomRightRadius)) {
@@ -192,24 +187,61 @@ public class ShapeProxy {
 //        } else {
 //            ViewCompat.setBackground(view, drawable);
 //        }
+
+        Map<Integer, Drawable> selectDrawable = new HashMap<>();
+
+        addStateDrawable(typedArray, R.styleable.ShapeView_select_focused, shape, gradientType, strokeWidth, strokeDashGap, strokeDashWidth, strokeColor, cornersRadius, cornersTopLeftRadius, cornersTopRightRadius, cornersBottomLeftRadius, cornersBottomRightRadius, selectDrawable);
+        addStateDrawable(typedArray, R.styleable.ShapeView_select_pressed, shape, gradientType, strokeWidth, strokeDashGap, strokeDashWidth, strokeColor, cornersRadius, cornersTopLeftRadius, cornersTopRightRadius, cornersBottomLeftRadius, cornersBottomRightRadius, selectDrawable);
+        addStateDrawable(typedArray, R.styleable.ShapeView_select_selected, shape, gradientType, strokeWidth, strokeDashGap, strokeDashWidth, strokeColor, cornersRadius, cornersTopLeftRadius, cornersTopRightRadius, cornersBottomLeftRadius, cornersBottomRightRadius, selectDrawable);
+        addStateDrawable(typedArray, R.styleable.ShapeView_select_checked, shape, gradientType, strokeWidth, strokeDashGap, strokeDashWidth, strokeColor, cornersRadius, cornersTopLeftRadius, cornersTopRightRadius, cornersBottomLeftRadius, cornersBottomRightRadius, selectDrawable);
+        addStateDrawable(typedArray, R.styleable.ShapeView_select_uncheckable, shape, gradientType, strokeWidth, strokeDashGap, strokeDashWidth, strokeColor, cornersRadius, cornersTopLeftRadius, cornersTopRightRadius, cornersBottomLeftRadius, cornersBottomRightRadius, selectDrawable);
+        addStateDrawable(typedArray, R.styleable.ShapeView_select_unable, shape, gradientType, strokeWidth, strokeDashGap, strokeDashWidth, strokeColor, cornersRadius, cornersTopLeftRadius, cornersTopRightRadius, cornersBottomLeftRadius, cornersBottomRightRadius, selectDrawable);
+
+        if (!selectDrawable.isEmpty()) {
+            builder.setSelectDrawable(selectDrawable);
+        }
         builder.build();
         typedArray.recycle();
         return builder;
+    }
+
+    private static void addStateDrawable(TypedArray typedArray, @StyleableRes int res, int shape, int gradientType, float strokeWidth, float strokeDashGap, float strokeDashWidth, int strokeColor, float cornersRadius, float cornersTopLeftRadius, float cornersTopRightRadius, float cornersBottomLeftRadius, float cornersBottomRightRadius, Map<Integer, Drawable> selectDrawable) {
+        if (hasValue(typedArray, res)) {
+            Drawable drawable = typedArray.getDrawable(res);
+            if (drawable instanceof ColorDrawable) {
+                GradientDrawable tmp = new GradientDrawable();
+                tmp.setColor(((ColorDrawable) drawable).getColor());
+                _setShape(tmp, shape);
+                _setGradientType(tmp, gradientType);
+                if (hasValue(strokeWidth)) {
+                    if (!hasValue(strokeDashGap) && !hasValue(strokeDashWidth)) {
+                        tmp.setStroke(Math.round(strokeWidth), strokeColor);
+                    } else {
+                        tmp.setStroke(Math.round(strokeWidth), strokeColor, strokeDashWidth, strokeDashGap);
+                    }
+                }
+                if (hasValue(cornersRadius)) {
+                    tmp.setCornerRadius(cornersRadius);
+                } else if (hasValue(cornersTopLeftRadius) || hasValue(cornersTopRightRadius) || hasValue(cornersBottomLeftRadius) || hasValue(cornersBottomRightRadius)) {
+                    //四个圆角半径，依次是左上x、左上y、右上x、右上y、右下x、右下y、左下x、左下y
+                    tmp.setCornerRadii(new float[]{cornersTopLeftRadius, cornersTopLeftRadius, cornersTopRightRadius, cornersTopRightRadius, cornersBottomRightRadius, cornersBottomRightRadius, cornersBottomLeftRadius, cornersBottomLeftRadius});
+                }
+                selectDrawable.put(res, tmp);
+            } else {
+                selectDrawable.put(res, drawable);
+            }
+        }
     }
 
     private static boolean hasValue(float value) {
         return value > 0.0F;
     }
 
-    private static boolean hasValueColor(int value) {
-        return value != 0;
-    }
-
     private static boolean hasValue(TypedArray typedArray, @StyleableRes int res) {
         return typedArray.hasValue(res);
     }
 
-    private static void setShape(GradientDrawable drawable, int shape) {
+    private static void _setShape(GradientDrawable drawable, int shape) {
         switch (shape) {
             case 0:
                 drawable.setShape(GradientDrawable.RECTANGLE);
@@ -226,7 +258,7 @@ public class ShapeProxy {
 
     }
 
-    private static void setGradientType(GradientDrawable drawable, int gradientType) {
+    private static void _setGradientType(GradientDrawable drawable, int gradientType) {
         switch (gradientType) {
             case 0:
                 drawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
@@ -295,7 +327,6 @@ public class ShapeProxy {
         //虚线框 间隙
         private float shapeStrokeDashGap = 0f;
         private float shapeStrokeDashWidth = 0f;
-        private int gradientType = GRADIENT_TYPE_LINEAR;
         @ColorInt
         private int shapeStrokeColor = 0;
         private int[] gradientColor;
@@ -305,11 +336,14 @@ public class ShapeProxy {
         //水波纹颜色
         @ColorInt
         private int shapeRippleColor = 0;
+        private int shapesRippleRadius = 0;
+        private int gradientType = GRADIENT_TYPE_LINEAR;
         private int gradientAngle = 0;//角度
         private float gradientCenterX = 0f;
         private float gradientCenterY = 0f;
         private float gradientRadius = 0f;
         private boolean gradientUseLevel = false;
+        private Map<Integer, Drawable> selectDrawable;
 
         Builder(View view) {
             this.view = view;
@@ -372,10 +406,7 @@ public class ShapeProxy {
         }
 
         /**
-         * 无默认
-         *
          * @param gradientType
-         * @return
          */
         public Builder setGradientType(@GRADIENT_TYPE int gradientType) {
             this.gradientType = gradientType;
@@ -408,7 +439,7 @@ public class ShapeProxy {
         }
 
         /**
-         * 渐变色
+         * 渐变色层级
          */
         public Builder setGradientUseLevel(boolean useLevel) {
             this.gradientUseLevel = useLevel;
@@ -424,11 +455,23 @@ public class ShapeProxy {
         }
 
         /**
+         * 水波纹半径（以像素为单位）
+         * 默认RippleDrawable.RADIUS_AUTO根据容器大小计算半径
+         */
+        public void setShapesRippleRadius(int shapesRippleRadius_px) {
+            this.shapesRippleRadius = shapesRippleRadius_px;
+        }
+
+        /**
          * 按压水波纹色
          */
         public Builder setShapeRippleColor(@ColorInt int shapeRippleColor) {
             this.shapeRippleColor = shapeRippleColor;
             return this;
+        }
+
+        private void setSelectDrawable(Map<Integer, Drawable> selectDrawable) {
+            this.selectDrawable = selectDrawable;
         }
 
         public void build() {
@@ -442,7 +485,7 @@ public class ShapeProxy {
                 }
             }
             if (this.gradientColor != null) {//有渐变色>渐变类型
-                ShapeProxy.setGradientType(drawable, gradientType);
+                _setGradientType(drawable, gradientType);
                 if (hasValue(gradientCenterX) || hasValue(gradientCenterY)) {
                     drawable.setGradientCenter(gradientCenterX, gradientCenterY);
                 }
@@ -455,7 +498,7 @@ public class ShapeProxy {
                 //drawable.setLevel(0);
             }
 
-            setShape(drawable, shapeType);
+            _setShape(drawable, shapeType);
             // 圆角
             if (hasValue(shapeCornersRadius)) {
                 drawable.setCornerRadius(shapeCornersRadius);
@@ -469,28 +512,43 @@ public class ShapeProxy {
              * 那么这些操作可能会覆盖你之前设置的颜色。确保在设置颜色之后没有其他的代码会改变 GradientDrawable 的状态。
              */
             drawable.setColor(shapeSolidColor);
-
-            /*水波纹*/
-            if (hasValueColor(shapeRippleColor)) {
-                //view.setFocusable(true);
-                view.setClickable(true);//需点击可用且touch触摸流程没被拦截才有效
-                getRippleDrawable(drawable);
+            //selector
+            Drawable selector;
+            if (this.selectDrawable != null && !this.selectDrawable.isEmpty()) {
+                view.setFocusable(true);
+                view.setClickable(true);
+                selector = getSelector(drawable,
+                        selectDrawable.get(R.styleable.ShapeView_select_pressed),
+                        selectDrawable.get(R.styleable.ShapeView_select_focused),
+                        selectDrawable.get(R.styleable.ShapeView_select_selected),
+                        selectDrawable.get(R.styleable.ShapeView_select_checked),
+                        selectDrawable.get(R.styleable.ShapeView_select_uncheckable),
+                        selectDrawable.get(R.styleable.ShapeView_select_unable));
             } else {
-                ViewCompat.setBackground(view, drawable);
+                selector = drawable;
+            }
+            /*水波纹*/
+            if (shapeRippleColor != 0) {
+                view.setFocusable(true);
+                view.setClickable(true);//需点击可用且touch触摸流程没被拦截才有效
+                setRippleDrawable(selector);
+            } else {
+                ViewCompat.setBackground(view, selector);
             }
         }
 
-        private void setSelector(View view,
-                                 Drawable normalDrawable,
-                                 Drawable pressedDrawable,
-                                 Drawable focusedDrawable,
-                                 Drawable selectedDrawable,
-                                 Drawable enabledDrawable,
-                                 Drawable unabledDrawable,
-                                 Drawable checkedDrawable,
-                                 Drawable checkableDrawable
+        private StateListDrawable getSelector(Drawable normalDrawable,
+                                              Drawable pressedDrawable,
+                                              Drawable focusedDrawable,
+                                              Drawable selectedDrawable,
+                                              Drawable checkedDrawable,
+                                              Drawable unCheckableDrawable,
+                                              Drawable unableDrawable
         ) {
             StateListDrawable stateListDrawable = new StateListDrawable();
+            if (focusedDrawable != null) {
+                stateListDrawable.addState(new int[]{android.R.attr.state_focused}, focusedDrawable);
+            }
             if (pressedDrawable != null) {
                 stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, pressedDrawable);
             }
@@ -500,21 +558,15 @@ public class ShapeProxy {
             if (checkedDrawable != null) {
                 stateListDrawable.addState(new int[]{android.R.attr.state_checked}, checkedDrawable);
             }
-            if (focusedDrawable != null) {
-                stateListDrawable.addState(new int[]{android.R.attr.state_focused}, focusedDrawable);
+            if (unCheckableDrawable != null) {
+                stateListDrawable.addState(new int[]{-android.R.attr.state_checkable}, unCheckableDrawable);
             }
-            if (checkableDrawable != null) {
-                stateListDrawable.addState(new int[]{android.R.attr.state_checkable}, checkableDrawable);
-            }
-            if (enabledDrawable != null) {
-                stateListDrawable.addState(new int[]{android.R.attr.state_enabled}, enabledDrawable);
-            }
-            if (unabledDrawable != null) {
-                stateListDrawable.addState(new int[]{-android.R.attr.state_enabled}, unabledDrawable);
+            if (unableDrawable != null) {
+                stateListDrawable.addState(new int[]{-android.R.attr.state_enabled}, unableDrawable);
             }
             //定义的默认 要放在最下面
             stateListDrawable.addState(new int[]{}, normalDrawable);
-            ViewCompat.setBackground(view, stateListDrawable);
+            return stateListDrawable;
         }
 
         @NonNull
@@ -528,21 +580,30 @@ public class ShapeProxy {
             return drawable;
         }
 
-        private void getRippleDrawable(GradientDrawable drawable) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+        private void setRippleDrawable(Drawable drawable) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 //参数1水波纹色，参数2内容，参数3 ripple背景 null则不需要背景，后边俩参数为null就无限涟漪
                 /*GradientDrawable backgrounD = new GradientDrawable();
                 backgrounD.setColor(Color.parseColor("#9977ff"));*/
                 //需点击可用且touch触摸流程没被拦截才有效  无限涟漪:后面俩null  rippleColor应该是带状态的press
                 RippleDrawable rippleDrawable = new RippleDrawable(
                         ColorStateList.valueOf(shapeRippleColor), drawable, null/*backgrounD*/);
-                /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (hasValue(shapeCornersRadius)) {//水波纹半径,
-                        rippleDrawable.setRadius((int) shapeCornersRadius);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (shapesRippleRadius > 0) {//水波纹半径 px,
+                        rippleDrawable.setRadius(shapesRippleRadius);
                     }
-                }*/
+                }
                 ViewCompat.setBackground(view, rippleDrawable);
             } else {
+                // 按压状态（模拟波纹）
+//                GradientDrawable pressedDrawable = new GradientDrawable();
+//                // 设置径向渐变模拟水波纹
+//                int[] colors = {
+//                        colorAlpha(shapeRippleColor, 0.35),
+//                        colorAlpha(shapeRippleColor, 0.25),
+//                        Color.TRANSPARENT };
+//                pressedDrawable.setColors(colors);
+//                pressedDrawable.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
                 GradientDrawable pressedDrawable = new GradientDrawable(
                         Orientation.LEFT_RIGHT,
                         new int[]{
@@ -550,8 +611,8 @@ public class ShapeProxy {
                                 colorAlpha(shapeRippleColor, 0.35),
                                 colorAlpha(shapeRippleColor, 0.25)
                         });
-                //setGradientType(GRADIENT_TYPE_RADIAL);
-                setShape(pressedDrawable, shapeType);
+                _setGradientType(pressedDrawable, gradientType);
+                _setShape(pressedDrawable, shapeType);
                 if (hasValue(shapeStrokeWidth)) {
                     if (!hasValue(shapeStrokeDashGap) && !hasValue(shapeStrokeDashWidth)) {
                         pressedDrawable.setStroke(Math.round(shapeStrokeWidth), shapeStrokeColor);
@@ -566,8 +627,8 @@ public class ShapeProxy {
                     pressedDrawable.setCornerRadii(new float[]{shapeCornersTopLeftRadius, shapeCornersTopLeftRadius, shapeCornersTopRightRadius, shapeCornersTopRightRadius, shapeCornersBottomRightRadius, shapeCornersBottomRightRadius, shapeCornersBottomLeftRadius, shapeCornersBottomLeftRadius});
                 }
                 //pressedDrawable.setColor(shapeRippleColor);
-                setSelector(view, drawable, pressedDrawable,
-                        null, null, null, null, null, null);
+                StateListDrawable selector = getSelector(drawable, pressedDrawable, null, null, null, null, null);
+                ViewCompat.setBackground(view, selector);
             }
         }
     }

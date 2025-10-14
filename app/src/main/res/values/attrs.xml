@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <declare-styleable name="shadow_drawable" tools:ignore="ResourceName">
+        <attr name="top" format="dimension" />
+        <attr name="left" format="dimension" />
+        <attr name="right" format="dimension" />
+        <attr name="bottom" format="dimension" />
+        <attr name="shadeOffsetX" format="dimension" />
+        <attr name="shadeOffsetY" format="dimension" />
+        <attr name="solid_color" format="color" />
+        <attr name="shade_color" format="color" />
+        <attr name="corner_radius" format="dimension" />
+        <attr name="shade_radius" format="dimension" />
+    </declare-styleable>
+</resources>

@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ShapeView shapeView = findViewById(R.id.downloadSpeedTextView);
+        //shapeView.newBuilder().build();
         View view = findViewById(R.id.view);
-        view.setOnClickListener(null);
         RippleDrawable rippleDrawable = new RippleDrawable(
                 ColorStateList.valueOf(Color.GRAY), new ColorDrawable(Color.RED), null);
         ViewCompat.setBackground(view, rippleDrawable);
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     @Override
