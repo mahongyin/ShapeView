@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp">
@@ -14,34 +13,42 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
+        android:elevation="5dp"
         app:shape_cornersRadius="8dp"
+        app:shape_rippleColor="@color/purple_500"
         app:shape_solidColor="@color/purple_200"
         app:shape_strokeColor="#000000"
-        app:shape_rippleColor="@color/purple_500"
-        android:elevation="5dp"
         app:shape_strokeWidth="1dp" />
 
+    <com.shape.frame_layout.ShapeView
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_marginTop="10dp"
+        app:shape_cornersRadius="10dp"
+        app:shape_solidColor="@color/purple_500">
+
+    </com.shape.frame_layout.ShapeView>
 
     <com.mhy.shapeview.ShapeView
         android:id="@+id/uploadSpeedTextView"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
+        android:elevation="5dp"
+        app:select_pressed="@drawable/shape"
         app:shape_cornersRadius="8dp"
         app:shape_solidColor="#33f7ff"
         app:shape_strokeColor="@color/black"
         app:shape_strokeDashGap="14dp"
         app:shape_strokeDashWidth="8dp"
-        app:shape_strokeWidth="1dp"
-        android:elevation="5dp"
-        app:select_pressed="@drawable/shape"/>
+        app:shape_strokeWidth="1dp" />
 
     <TextView
         android:id="@+id/view"
-        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
-        android:background="@color/black"/>
+        android:background="@color/black"
+        android:clickable="true" />
 
 </LinearLayout>

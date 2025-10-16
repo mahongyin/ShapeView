@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
-
+import com.mhy.shapeview.R;
 import java.io.IOException;
 
 /**

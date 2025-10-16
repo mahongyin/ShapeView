@@ -16,7 +16,7 @@
         <attr name="shape_cornersBottomRightRadius" format="reference|dimension" />
         <!--边框实线-->
         <attr name="shape_strokeWidth" format="reference|dimension" />
-        <attr name="shape_strokeColor" format="reference|color" />
+        <attr name="shape_strokeColor" format="color" />
         <!--边框虚线间隙-->
         <attr name="shape_strokeDashGap" format="reference|dimension" />
         <attr name="shape_strokeDashWidth" format="reference|dimension" />
@@ -26,18 +26,18 @@
             <enum name="sweep" value="1" />
             <enum name="radial" value="2" />
         </attr>
-        <attr name="shape_gradientStartColor" format="reference|color" />
-        <attr name="shape_gradientEndColor" format="reference|color" />
-        <attr name="shape_gradientCenterColor" format="reference|color" />
+        <attr name="shape_gradientStartColor" format="color" />
+        <attr name="shape_gradientEndColor" format="color" />
+        <attr name="shape_gradientCenterColor" format="color" />
         <attr name="shape_gradientAngle" format="reference|integer" />
         <attr name="shape_gradientCenterX" format="reference|float" />
         <attr name="shape_gradientCenterY" format="reference|float" />
         <attr name="shape_gradientRadius" format="reference|dimension" />
         <attr name="shape_gradientUseLevel" format="reference|boolean" />
         <!--背景填充色 不要用background-->
-        <attr name="shape_solidColor" format="reference|color" />
+        <attr name="shape_solidColor" format="color" />
         <!--水波纹颜色-->
-        <attr name="shape_rippleColor" format="reference|color" />
+        <attr name="shape_rippleColor" format="color" />
         <attr name="shape_rippleRadius" format="reference|dimension" />
         <!--选择器 颜色或自定义shape-->
         <attr name="select_pressed" format="reference|color" />

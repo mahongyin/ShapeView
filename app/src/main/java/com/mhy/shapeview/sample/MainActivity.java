@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 
+import com.mhy.shapeview.R;
 import com.mhy.shapeview.ShapeView;
 
 

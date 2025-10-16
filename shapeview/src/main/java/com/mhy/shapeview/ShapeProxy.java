@@ -515,8 +515,12 @@ public class ShapeProxy {
             //selector
             Drawable selector;
             if (this.selectDrawable != null && !this.selectDrawable.isEmpty()) {
-                view.setFocusable(true);
-                view.setClickable(true);
+                if (!view.isFocusable()){
+                    view.setFocusable(true);
+                }
+                if (!view.isClickable()) {
+                    view.setClickable(true);//需点击可用且touch触摸流程没被拦截才有效
+                }
                 selector = getSelector(drawable,
                         selectDrawable.get(R.styleable.ShapeView_select_pressed),
                         selectDrawable.get(R.styleable.ShapeView_select_focused),
@@ -529,8 +533,12 @@ public class ShapeProxy {
             }
             /*水波纹*/
             if (shapeRippleColor != 0) {
-                view.setFocusable(true);
-                view.setClickable(true);//需点击可用且touch触摸流程没被拦截才有效
+                if (!view.isFocusable()){
+                   view.setFocusable(true);
+                }
+                if (!view.isClickable()) {
+                    view.setClickable(true);//需点击可用且touch触摸流程没被拦截才有效
+                }
                 setRippleDrawable(selector);
             } else {
                 ViewCompat.setBackground(view, selector);
